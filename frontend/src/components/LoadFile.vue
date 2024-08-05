@@ -24,13 +24,16 @@ export default {
                     });
                     console.log('File uploaded successfully:', response.data);
                     this.uploadSuccess = true
+                    this.emitter.emit("uploadStatus", { status: this.uploadSuccess });
                 } catch (error) {
                     console.error('Error uploading file:', error);
                     this.uploadSuccess = false
+                    this.emitter.emit("uploadStatus", { status: this.uploadSuccess });
                 }
             } else {
                 console.error('Invalid file type. Only .ics files are allowed.');
                 this.uploadSuccess = false
+                this.emitter.emit("uploadStatus", { status: this.uploadSuccess });
             }
         },
         dragover(e) {

@@ -8,10 +8,7 @@ export default
 			NavBar,
 			LoadFile,
 			PopUp
-		},
-		mounted() {
-		},
-
+		}
 	}
 
 
@@ -21,7 +18,7 @@ export default
 	<div class="h-screen bg-slate-300">
 		<PopUp />
 		<NavBar />
-		<LoadFile />
+		<LoadFile/>
 	</div>
 </template>
 
