@@ -27,6 +27,7 @@ export default {
             this.enable = true
             setTimeout(() => {
                 this.enable = false;
+            this.$router.push('/dashboard');
             }, 1000);
         });
     },
