@@ -5,7 +5,6 @@ import AboutView from '../views/aboutView.vue'
 import FaqView from '../views/faqView.vue'
 import ContactView from '../views/contactView.vue'
 
-
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -34,7 +33,6 @@ const router = createRouter({
       name: 'contact',
       component: ContactView
     }
-
   ]
 })
 
