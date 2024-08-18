@@ -1,0 +1,21 @@
+Color:
+    Primary Color 1 (red): #eb3f3f (rgba(235,63,63,255))
+    Primary Color 2 (blue): #1b83ff (rgba(27,131,255,255))
+    Primary Color 3 (green): #00a9ab (rgba(0,169,171,255))
+    Primary Color 4 (yellow - orange): #fd8e01 (rgba(253,142,1,255))
+
+    Secondary Color 1 (red): #fe645a (rgba(254,100,90,255))
+    Secondary Color 2 (blue): #45acf7 (rgba(69,172,247,255))
+    Secondary Color 2 (green): #00aca9 (rgba(0,172,169,255))
+    Primary Color 4 (yellow - orange): #feb70c (rgba(254,183,12,255))
+
+
+Font:
+    ...
+
+
+Button:
+    ...
+
+Margin and Padding:
+    ...

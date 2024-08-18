@@ -16,24 +16,34 @@ const router = createRouter({
     {
       path: '/dashboard',
       name: 'dashboard',
-      component: DashboardView
+      component: DashboardView,
+      meta:{ title: "Dashboard"}
     },
     {
       path: '/about',
       name: 'about',
-      component: AboutView
+      component: AboutView,
+      meta:{ title: "About"}
     },
     {
       path: '/faq',
       name: 'faq',
-      component: FaqView
+      component: FaqView,
+      meta:{ title: "FAQ"}
     },
     {
       path: '/contact',
       name: 'contact',
-      component: ContactView
+      component: ContactView,
+      meta:{ title: "Contact"}
     }
   ]
+  
+});
+
+router.beforeEach((toRoute, fromRoute, next) => {
+  document.title = toRoute.meta?.title || 'Home';
+  next();
 })
 
 export default router
