@@ -2,6 +2,7 @@
 import NavBar from '../components/NavBar.vue';
 import LoadFile from '../components/LoadFile.vue';
 import PopUp from '../components/popUp.vue';
+import axios from 'axios'
 export default
 	{
 		components: {
@@ -11,11 +12,8 @@ export default
 		},
 		data: function () {
 			return {
-				eventsList: [
-					{ value: 'vuejs', label: 'Vue.js' },
-					{ value: 'react', label: 'React', disabled: true },
-					{ value: 'angularjs', label: 'AngularJS', disabled: true },
-				],
+				eventsList: [],
+				selectedDates: null,
 				chartOptions: {
 					chart: {
 						id: "vuechart-example",
@@ -31,15 +29,36 @@ export default
 					},
 					{
 						name: 'Binary System',
-						data: [72, 84, 80, 80, 68, 80, 80, 92, 80]
+						data: [72, 84, 80, 80, 68, 80, 80, 92, 80, 80, 92, 80]
 					}
 				],
 				optionsArea: {
 					labels: ['INNAMORATO', 'Binary System']
 				},
 				seriesArea: [44, 55]
-			};
-		}
+			}
+		},
+		async mounted() {
+			var res = await axios.get('http://localhost:3000/api/get_events')
+			console.log(res)
+			this.eventsList = res.data.events_summary
+		},
+		methods: {
+			async loadData() {
+				// Handle the form data here
+				const datesElement = this.$refs.datesElement.value;
+				const multiselectElement = this.$refs.multiselectElement.value;
+				console.log('Form Data:', multiselectElement);
+
+				var res = (await axios.post('http://localhost:3000/api/load_data', {
+					start_date: datesElement[0],
+					end_date: datesElement[1],
+					events_selected: multiselectElement
+				})).data
+				console.log(res)
+				this.series = res.data
+			},
+		},
 	}
 
 
@@ -51,21 +70,16 @@ export default
 		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
 			<!-- Prima riga su schermi grandi, colonna su schermi piccoli -->
 			<div class="col-span-3 m-2">
-				<Vueform :columns="{ container: 12 }">
-					<MultiselectElement 
-						name="multiselect" 
-						:columns="{ container: 9, label: 12, wrapper: 12 }" 
-						:native="false" 
-						:items="eventsList" 
-					/>
 
-					<ButtonElement 
-						name="register" 
-						:columns="{ container: 3 }" 
-						:submits="true"
-						button-label="Create Dashboard" 
-						:full="true" 
-					/>
+				<Vueform @submit="loadData()" :endpoint="false" :columns="{ container: 12 }">
+					<DatesElement ref="datesElement" name="dates" mode="range"
+						:columns="{ container: 3, label: 12, wrapper: 12 }" v-model="selectedDates" />
+
+					<MultiselectElement ref="multiselectElement" name="multiselect"
+						:columns="{ container: 3, label: 12, wrapper: 12 }" :native="false" :items="eventsList" :search="true" />
+
+					<ButtonElement name="register" :columns="{ container: 3 }" :submits="true"
+						button-label="Create Dashboard" :full="true" />
 				</Vueform>
 			</div>
 			<div class="border-2 border-green-500 m-2">
