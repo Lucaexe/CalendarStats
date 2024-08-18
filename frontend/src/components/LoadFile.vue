@@ -17,7 +17,7 @@ export default {
                 formData.append('file', this.file);
 
                 try {
-                    const response = await axios.post('http://localhost:3000/api/uploadFile', formData, {
+                    const response = await axios.post('http://localhost:3000/api/upload_file', formData, {
                         headers: {
                             'Content-Type': 'multipart/form-data'
                         }
